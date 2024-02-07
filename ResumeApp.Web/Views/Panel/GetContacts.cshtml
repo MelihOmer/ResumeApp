@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Contact>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container-fluid">
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"></h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>İsim Soyisim</th>
+                            <th>E-Mail</th>
+                            <th>Telefon</th>
+                            <th>Okundu Bilgisi</th>
+                            <th>İçerik</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Fullname</td>
+                                <td>@item.Email</td>
+                                <td>@item.PhoneNumber</td>
+                                <td>@(item.Seen ? "Okundu" : "Okunmadı")</td>
+                                <td><a class="btn btn-outline-primary" asp-action="GetContactMessageDetails" asp-controller="Panel" asp-route-id="@item.Id"><i class="fa-solid fa-envelope-open-text" style="margin-right:10px;"></i>Oku</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

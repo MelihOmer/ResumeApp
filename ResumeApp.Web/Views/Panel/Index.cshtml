@@ -1,0 +1,58 @@
+﻿@model List<ResumeDto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"></h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Age</th>
+                            <th>PhoneNumber</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@(@DateTime.Now.Year - @item.DateOfBirth.Year)</td>
+                                <td>@item.PhoneNumber</td>
+                                <td>@item.Email</td>
+                                <td>@item.Address</td>
+                                <td><a asp-action="Update" asp-controller="Resume" asp-route-Id="@item.Id" class="btn btn-sm btn-warning">Düzenle <i class="fa-solid fa-pencil"></i></a></td>
+                                <td><a asp-action="Add" asp-controller="Experience" asp-route-Id="@item.Id" class="btn btn-sm  btn-outline-primary"><i class="fa-solid fa-vial mx-1"></i>Deneyim Ekle</a> </td>
+                                <td><a asp-action="Add" asp-controller="Education" asp-route-Id="@item.Id" class="btn btn-sm  btn-outline-secondary"><i class="fa-solid fa-graduation-cap mx-1"></i>Eğitim Ekle</a> </td>
+                                <td><a asp-action="Add" asp-controller="Skill" asp-route-Id="@item.Id" class="btn btn-sm  btn-outline-success"><i class="fa-solid fa-puzzle-piece mx-1"></i>Yetenek Ekle</a> </td>
+                                <td><a asp-action="Add" asp-controller="Project" asp-route-Id="@item.Id" class="btn btn-sm  btn-outline-danger"><i class="fa-regular fa-folder-open mx-1"></i>Proje Ekle</a> </td>
+                                <td><a asp-action="Add" asp-controller="Language" asp-route-Id="@item.Id" class="btn btn-sm  btn-outline-dark"><i class="fa-solid fa-globe mx-1"></i>Dil Ekle</a> </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

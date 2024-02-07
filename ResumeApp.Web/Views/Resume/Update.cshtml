@@ -1,0 +1,81 @@
+﻿@model ResumeUpdateDto
+<div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+            @*<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>*@
+            <div class="col">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Resume App Cv Form</h1>
+                    </div>
+                    <form class="user" asp-action="Update" asp-controller="Resume" >
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="First Name" asp-for="FirstName">
+                                <span asp-validation-for="FirstName" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Last Name" asp-for="LastName">
+                                <span asp-validation-for="LastName" class="text-danger mx-5 "></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input type="email" class="form-control form-control-user border-danger" autocomplete="off"placeholder="Email Address" asp-for="Email">
+                                <span asp-validation-for="Email" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="tel" class="form-control form-control-user border-danger" autocomplete="off"placeholder="Phone Number" asp-for="PhoneNumber">
+                                <span asp-validation-for="PhoneNumber" class="text-danger mx-5 "></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user border-danger" autocomplete="off"placeholder="Address" asp-for="Address">
+                                <span asp-validation-for="Address" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="date" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Date Of Birth" asp-for="DateOfBirth">
+                                <span asp-validation-for="DateOfBirth" class="text-danger mx-5 "></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user" autocomplete="off" placeholder="Web Site" asp-for="WebSiteUrl">
+                                <span asp-validation-for="WebSiteUrl" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user" autocomplete="off" placeholder="Github" asp-for="GithubUrl">
+                                <span asp-validation-for="GithubUrl" class="text-danger mx-5 "></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user" autocomplete="off" placeholder="Linkedin" asp-for="LinkedinUrl">
+                                <span asp-validation-for="LinkedinUrl" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user" autocomplete="off" placeholder="Twitter" asp-for="TwitterUrl">
+                                <span asp-validation-for="TwitterUrl" class="text-danger mx-5 "></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user" autocomplete="off" placeholder="Youtube" asp-for="YoutubeChannelUrl">
+                                <span asp-validation-for="YoutubeChannelUrl" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user" autocomplete="off" placeholder="Facebook" asp-for="FacebookUrl">
+                                <span asp-validation-for="FacebookUrl" class="text-danger mx-5 "></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success btn-user btn-block">Update </button>
+                        <hr>
+                    </form>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

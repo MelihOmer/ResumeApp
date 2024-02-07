@@ -1,0 +1,29 @@
+﻿@model SkillUpdateDto
+<div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+            @*<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>*@
+            <div class="col">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Resume App Skills Form</h1>
+                    </div>
+                    <form class="user" asp-action="EditSkill" asp-controller="Skill">
+                        <input style="display:none;" asp-for="Id" />
+                        <input style="display:none;" asp-for="ResumeId" />
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Yetenek" asp-for="Name">
+                                <span asp-validation-for="Name" class="text-danger mx-5 "></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success btn-user btn-block">Yeteneği Güncelle </button>
+                        <hr>
+                    </form>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

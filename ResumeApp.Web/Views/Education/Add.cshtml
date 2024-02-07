@@ -1,0 +1,70 @@
+﻿@model EducationAddDto
+<div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+        <div class="row">
+            <div class="col">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Resume App Education Form</h1>
+                    </div>
+                    <form class="user" asp-action="Add" asp-controller="Education">
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Okul Adı" asp-for="SchoolName">
+                                <span asp-validation-for="SchoolName" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Bölüm" asp-for="Branch">
+                                <span asp-validation-for="Branch" class="text-danger mx-5 "></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                                <input type="date" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Email Address" asp-for="StartDate">
+                                <span asp-validation-for="StartDate" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="date" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Phone Number" asp-for="EndDate" id="endDate">
+                                <span asp-validation-for="EndDate" class="text-danger mx-5 "></span>
+                            </div>
+                            <div class="form-check col-sm-2">
+                                <input class="form-check-input" type="checkbox" id="checkBoxDevam" asp-for="Continue">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Devam Ediyor
+                                </label>
+                            </div>
+                        </div>                        
+                        <div class="">
+                            <textarea type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Eğitim Süresi Boyunca Bulunduğunuz projeler,görevler,gruplar varsa referanslar." asp-for="About"></textarea>
+                            <span asp-validation-for="About" class="text-danger mx-5 "></span>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success btn-user btn-block">Create </button>
+                        <hr>
+                    </form>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Sayfa yüklendiğinde kontrol edelim
+        toggleDateTimeInput();
+
+        // CheckBox her değiştiğinde fonksiyonu çağır
+        $("#checkBoxDevam").change(function () {
+            toggleDateTimeInput();
+        });
+    });
+
+    function toggleDateTimeInput() {
+        // CheckBox işaretliyse DateTime inputunu pasif yap, değilse aktifleştir
+        var checkBoxDevam = $("#checkBoxDevam").prop("checked");
+        $("#endDate").prop("disabled", checkBoxDevam);
+        if (checkBoxDevam) {
+            $("#endDate").val("0000-00-00T00:00");
+        }
+    }
+</script>

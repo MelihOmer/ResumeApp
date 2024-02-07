@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Experience>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Şirket Adı</th>
+                        <th>Hakkında</th>
+                        <th>Başlangıç Tarihi</th>
+                        <th>Devam/Bitiş Tarihi</th>
+                        <th>Düzenle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.CompanyName</td>
+                            <td>@item.About</td>
+                            <td>@item.StartDate.ToShortDateString()</td>
+                            <td>
+                                @if (item.Continue)
+                                {
+                                    <p>Devam Ediyor</p>
+                                }
+                                else
+                                {
+                                    @item.EndDate.ToShortDateString()
+                                }
+                            </td>
+                            <td><a class="btn btn-outline-warning" asp-action="EditExperience" asp-controller="Experience" asp-route-id="@item.Id">Düzenle</a></td>
+                            <td><a class="btn btn-outline-danger" asp-action="Remove" asp-controller="Experience" asp-route-id="@item.Id">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+﻿@model IEnumerable<Education>
+<link href="~/toastr.js/toastr.min.css" rel="stylesheet" />
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eğitim Bilgisi Ekle</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="postForm">
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Okul Adı" name="SchoolName" id="SchoolName">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Bölüm" name="Branch" id="Branch">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Email Address" name="StartDate" id="StartDate">
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Phone Number" name="endDate" id="endDate">
+                        </div>
+                        <div class="form-check col-sm-2">
+                            <input class="form-check-input" type="checkbox" name="Continue" id="Continue">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Devam Ediyor
+                            </label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <textarea type="text" class="form-control form-control-user border-danger" autocomplete="off" placeholder="Eğitim Süresi Boyunca Bulunduğunuz projeler,görevler,gruplar varsa referanslar." name="About" id="About"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-dismiss="modal">İptal</button>
+                <button type="submit" id="postButton" class="btn btn-success" value="postForm">Ekle</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"></h6>
+        <a class="btn btn-outline-success" data-toggle="modal" data-target="#addModal">Ekle<i class="fa-solid fa-plus mx-1"></i></a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Okul</th>
+                        <th>Branş</th>
+                        <th>Hakkında</th>
+                        <th>Başlangıç Tarihi</th>
+                        <th>Devam/Bitiş Tarihi</th>
+                        <th>Düzenle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.SchoolName</td>
+                            <td>@item.Branch</td>
+                            <td>@item.About</td>
+                            <td>@item.StartDate.ToShortDateString()</td>
+                            <td>
+                                @if (item.Continue)
+                                {
+                                    <p>Devam Ediyor</p>
+                                }
+                                else
+                                {
+                                    @item.EndDate.ToShortDateString()
+                                }
+                            </td>
+                            <td><a class="btn btn-outline-warning" asp-action="EditEducation" asp-controller="Education" asp-route-id="@item.Id">Düzenle</a></td>
+                            <td><a class="btn btn-outline-danger" asp-action="Remove" asp-controller="Education" asp-route-id="@item.Id">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+        class EducationAddDto {
+            constructor(SchoolName, Branch, StartDate, EndDate, Continue, About) {
+                this.SchoolName = SchoolName;
+                this.Branch = Branch;
+                this.StartDate = StartDate;
+                this.EndDate = EndDate;
+                this.Continue = Continue;
+                this.About = About;
+            }
+        }
+    </script>
+        <script>
+        //$(document).ready(function () {
+        //    $("#postButton").click(function () {
+        //        var SchoolName = $("#SchoolName").val();
+        //        var Branch = $("#Branch").val();
+        //        var StartDate = $("#StartDate").val();
+        //        var EndDate = $("#endDate").val();
+        //        var Continue = $("#Continue").val();
+        //        var About = $("#About").val();
+
+        //        var modelData = new EducationAddDto(SchoolName, Branch, StartDate, EndDate, Continue, About);
+        //        var jsonData = JSON.stringify(modelData);
+        //        $.ajax({
+        //            url: "https://localhost:44357/Education/AddAjax",
+        //            type: "POST",
+        //            data: jsonData,
+        //            dataType: "application/json",
+        //            success: function (result) {
+        //                if(result.success == false){
+        //                    console.error(result.message);
+        //                    toastr.error(result.message);
+        //                }
+        //                else{
+        //                   toastr.success(result.message);
+        //                }
+        //            },
+        //            error: function (error) {
+        //                console.log(error)
+        //            }
+        //        })
+        //    })
+        //})
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#postButton").click(function (e){
+                var valdata = $("#postForm").serialize();
+                $.ajax({
+                    url: "https://localhost:44357/Education/AddAjax",
+                    type:"POST",
+                    dataType:'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data:valdata,
+                    success:function(result){
+                        if(result.success ==false){
+                            toastr.error(result.message)
+                        }
+                        else{
+                            toastr.success(result.message)
+                        }
+                    },
+                    error:function(error){
+                        console.log(error)
+                    }
+                });
+            });
+        });
+    </script>
+  
+}

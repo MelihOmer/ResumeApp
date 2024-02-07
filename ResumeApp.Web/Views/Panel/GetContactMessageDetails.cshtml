@@ -1,0 +1,49 @@
+﻿@model Contact
+
+<div class="container">
+    <link href="~/toastr.js/toastr.min.css" rel="stylesheet" />
+    <div class="card ">
+        <div class="card-header row">
+            <div class="form-check col-md-5 text-end ">
+                <input class="form-check-input" type="checkbox" id="seenCheckbox" asp-for="Seen">
+                <label class="form-check-label" for="seenCheckbox">
+                    Okundu
+                </label>
+            </div>
+            <div class="col-md-6 text-end">
+                <strong>KİMDEN :  @Model.Fullname.ToUpperInvariant() </strong>
+            </div>
+        </div>
+        <div class="card-body text-center">
+            <p class="card-title"><strong>E-Mail : </strong> @Model.Email <hr /><strong>Telefon : </strong> @Model.PhoneNumber <hr /></p>
+            <div>
+                <p><strong><u>Mesaj</u></strong></p>
+                <h4 class="card-text"><strong>@Model.Message</strong></h4><hr />
+                <a id="buttonn" onclick="seenMessage(@Model.Id)" class="btn btn-primary my-2 @(Model.Seen  ? "disabled" : "")">Okundu Olarak İşaretle</a>
+                <hr />
+                <a class="btn btn-light" asp-action="GetContacts" asp-controller="Panel"><i class="fa-solid fa-angles-left" style="margin-right:10px;"></i>Mesajlara Dön</a>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <strong>Tarih : </strong> (@Model.CreatedDate)
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script src="~/js/seenMessage.js" type="text/javascript"></script>
+    <script src="~/js/messageCount.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#buttonn").click(function () {
+            const div = document.getElementById('messageCount');
+            fetch('https://localhost:44357/Panel/messageCount', {
+                method: 'GET'
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    div.innerHTML = result - 1;
+                });
+        })
+    </script>
+}
